@@ -188,7 +188,7 @@ static CFProgressHUD *hub=nil;
 -(UIControl *)bgView{
     if (!_bgView) {
         _bgView=[[UIControl alloc]init];
-        _bgView.backgroundColor=[UIColor clearColor];
+        _bgView.backgroundColor=COLOR_RGBA(0x000000, 0.4);
     }
     return _bgView;
 }
