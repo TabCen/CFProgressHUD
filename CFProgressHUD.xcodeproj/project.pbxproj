@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F0BAAE41DDAC4C30096BDD4 /* load_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F0BAAE21DDAC4C30096BDD4 /* load_bg@3x.png */; };
+		9F0BAAE51DDAC4C30096BDD4 /* load_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9F0BAAE31DDAC4C30096BDD4 /* load_bg@2x.png */; };
 		9FF55D3B1DCA1E2F003AD4A7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF55D3A1DCA1E2F003AD4A7 /* main.m */; };
 		9FF55D3E1DCA1E2F003AD4A7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF55D3D1DCA1E2F003AD4A7 /* AppDelegate.m */; };
 		9FF55D411DCA1E2F003AD4A7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FF55D401DCA1E2F003AD4A7 /* ViewController.m */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9F0BAAE21DDAC4C30096BDD4 /* load_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "load_bg@3x.png"; sourceTree = "<group>"; };
+		9F0BAAE31DDAC4C30096BDD4 /* load_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "load_bg@2x.png"; sourceTree = "<group>"; };
 		9FF55D361DCA1E2E003AD4A7 /* CFProgressHUD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CFProgressHUD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FF55D3A1DCA1E2F003AD4A7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9FF55D3C1DCA1E2F003AD4A7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -89,6 +93,8 @@
 		9FF55D501DCA1E5E003AD4A7 /* CFProgressHub */ = {
 			isa = PBXGroup;
 			children = (
+				9F0BAAE21DDAC4C30096BDD4 /* load_bg@3x.png */,
+				9F0BAAE31DDAC4C30096BDD4 /* load_bg@2x.png */,
 				9FF55D511DCA1E5E003AD4A7 /* CFProgressHUD.h */,
 				9FF55D521DCA1E5E003AD4A7 /* CFProgressHUD.m */,
 				9FF55D531DCA1E5E003AD4A7 /* WCGraintCircleLayer.h */,
@@ -154,9 +160,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F0BAAE41DDAC4C30096BDD4 /* load_bg@3x.png in Resources */,
 				9FF55D491DCA1E2F003AD4A7 /* LaunchScreen.storyboard in Resources */,
 				9FF55D461DCA1E2F003AD4A7 /* Assets.xcassets in Resources */,
 				9FF55D441DCA1E2F003AD4A7 /* Main.storyboard in Resources */,
+				9F0BAAE51DDAC4C30096BDD4 /* load_bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +330,7 @@
 				9FF55D4F1DCA1E2F003AD4A7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

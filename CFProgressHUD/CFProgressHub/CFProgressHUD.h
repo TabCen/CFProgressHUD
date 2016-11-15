@@ -14,14 +14,20 @@
 +(instancetype)shareFile;
 
 +(void)_show;
++(void)_showWithImage:(UIImage *)image;
 +(void)_showWithTittle:(NSString *)tittle;
-
++(void)_showWithImage:(UIImage *)image withTittle:(NSString *)tittle;
 
 -(void)show;
+-(void)showWithImage:(UIImage *)image;
 -(void)showWithTittle:(NSString *)tittle;
+-(void)showWithImage:(UIImage *)image withTittle:(NSString *)tittle;
+
 
 -(void)stop;
 +(void)hide;
+
+//+(void)_showWithTittle:(NSString *)tittle
 
 @end
 

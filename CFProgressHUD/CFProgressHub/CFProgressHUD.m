@@ -22,10 +22,16 @@ static NSString *const AnimationID=@"KCBasicAnimation_Rotation";
 @property(nonatomic,strong)UIView               *smallbgView;
 @property(nonatomic,strong)NSString             *tittle;
 @property(nonatomic,strong)NSTimer              *timer;
+@property(nonatomic,strong)UIImage              *image;
+@property(nonatomic,strong)UIImageView          *imageView;
+
+@property(nonatomic)BOOL                        circleIsImage;
 
 @end
 
 @implementation CFProgressHUD
+
+@synthesize image=_image;
 
 static CFProgressHUD *hub=nil;
 
@@ -33,6 +39,7 @@ static CFProgressHUD *hub=nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         hub=[super allocWithZone:zone];
+        hub.circleIsImage=NO;
     });
     return hub;
 }
@@ -41,11 +48,11 @@ static CFProgressHUD *hub=nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         hub=[[self alloc] init];
+        hub.circleIsImage=NO;
     });
     
     return hub;
 }
-
 
 -(void)dealloc{
     NSLog(@"CFProgressHub中dealloc方法中，应该不走这个方法");
@@ -54,6 +61,7 @@ static CFProgressHUD *hub=nil;
 -(instancetype)init{
     self=[super init];
     if (self) {
+        
     }
     return self;
 }
@@ -63,21 +71,58 @@ static CFProgressHUD *hub=nil;
     [hub show];
 }
 
-
++(void)_showWithImage:(UIImage *)image{
+    [CFProgressHUD shareFile];
+    hub.circleIsImage=YES;
+    hub.image=image;
+    [hub show];
+}
 
 +(void)_showWithTittle:(NSString *)tittle{
     [CFProgressHUD shareFile];
     [hub showWithTittle:tittle];
 }
 
++(void)_showWithImage:(UIImage *)image withTittle:(NSString *)tittle{
+    [CFProgressHUD shareFile];
+    hub.circleIsImage=YES;
+    hub.image=image;
+    [hub showWithTittle:tittle];
+}
+
+-(void)showWithImage:(UIImage *)image{
+    self.circleIsImage=YES;
+    self.image=image;
+    [self show];
+}
+
+-(void)showWithImage:(UIImage *)image withTittle:(NSString *)tittle{
+    self.circleIsImage=YES;
+    self.image=image;
+    [self showWithTittle:tittle];
+}
+
 -(void)show{
+    UIImage *image=self.image;
     [self cleanMemory];
     
     UIWindow *window=[UIApplication sharedApplication].keyWindow;
     self.bgView.frame=window.frame;
-    self.circleLayer.position=self.bgView.center;
     
-    [_bgView.layer addSublayer:self.circleLayer];
+    if (self.circleIsImage) {
+        hub.image=image;
+        self.imageView=nil;
+        self.imageView=[[UIImageView alloc]initWithImage:self.image];
+        self.imageView.frame=CGRectMake(0, 0, 45, 45);
+        self.circleLayer=(WCGraintCircleLayer *)self.imageView.layer;
+        
+        self.circleLayer.position=self.bgView.center;
+        [_bgView.layer addSublayer:self.circleLayer];
+    }else{
+        self.circleLayer.position=self.bgView.center;
+        [_bgView.layer addSublayer:self.circleLayer];
+    }
+    
     [window addSubview:_bgView];
     [self startAnimation];
     
@@ -86,7 +131,10 @@ static CFProgressHUD *hub=nil;
 }
 
 -(void)showWithTittle:(NSString *)tittle{
+    UIImage *image=self.image;
+    
     [self cleanMemory];
+    
     self.tittle=tittle;
     
     UIWindow *window=[UIApplication sharedApplication].keyWindow;
@@ -101,7 +149,22 @@ static CFProgressHUD *hub=nil;
     
     [self.smallbgView addSubview:self.label];
     
-    [self.smallbgView.layer addSublayer:self.circleLayer];
+//    [self.smallbgView.layer addSublayer:self.circleLayer];
+    
+    if (self.circleIsImage) {
+        hub.image=image;
+        self.imageView=nil;
+        self.imageView=[[UIImageView alloc]initWithImage:self.image];
+        self.imageView.frame=CGRectMake(0, 0, 45, 45);
+        self.circleLayer=(WCGraintCircleLayer *)self.imageView.layer;
+        self.circleLayer.position=CGPointMake(25, 25);
+        
+        [self.smallbgView.layer addSublayer:self.circleLayer];
+    }else{
+        
+        [self.smallbgView.layer addSublayer:self.circleLayer];
+    }
+    
     
     [self.bgView addSubview:self.smallbgView];
     
@@ -120,6 +183,9 @@ static CFProgressHUD *hub=nil;
 }
 
 -(void)stop{
+    if (_circleIsImage) {
+        self.circleIsImage=NO;
+    }
     [self stopAnimation];
     [self cleanMemory];
     [self removeFromSuperview];
@@ -145,6 +211,12 @@ static CFProgressHUD *hub=nil;
 
 
 -(void)cleanMemory{
+    if (_image) {
+        _image=nil;
+    }
+    if (_imageView) {
+        _imageView=nil;
+    }
     if (_bgView) {
         [_bgView removeFromSuperview];
         _bgView=nil;
@@ -164,6 +236,8 @@ static CFProgressHUD *hub=nil;
     if (_tittle) {
         _tittle=nil;
     }
+    
+    
 }
 
 
@@ -193,12 +267,23 @@ static CFProgressHUD *hub=nil;
     return _bgView;
 }
 
+-(UIImage *)image{
+    if (!_image) {
+        _image=[UIImage imageNamed:@"load_bg"];
+    }
+    return _image;
+}
+
+-(void)setImage:(UIImage *)image{
+    _image=image;
+}
+
 -(WCGraintCircleLayer *)circleLayer{
     if (!_circleLayer) {
         _circleLayer=[[WCGraintCircleLayer alloc]initGraintCircleWithBounds:CGRectMake(0, 0, 45, 45) Position:CGPointMake(25, 25) FromColor:[UIColor clearColor] ToColor:[UIColor greenColor] LineWidth:5];
     }
     return _circleLayer;
-}
+}   
 
 -(UIView *)smallbgView{
     if (!_smallbgView) {

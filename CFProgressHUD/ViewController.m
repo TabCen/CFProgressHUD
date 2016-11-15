@@ -23,10 +23,19 @@
 }
 
 - (IBAction)buttonClicked:(id)sender {
+//    CFProgressHUD *hud=[[CFProgressHUD alloc]init];
+//    [hud show];
+    [CFProgressHUD _showWithImage:[UIImage imageNamed:@"load_bg"] withTittle:@"请稍等"];
+//    +(void)_showWithImage:(UIImage *)image withTittle:(NSString *)tittle
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [CFProgressHUD hide];
+    });
+    
+}
+- (IBAction)button:(id)sender {
+    
     CFProgressHUD *hud=[[CFProgressHUD alloc]init];
-    [hud show];
-    
-    
+    [hud showWithImage:[UIImage imageNamed:@"load_bg"] withTittle:@"哈哈哈"];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [CFProgressHUD hide];
@@ -41,6 +50,9 @@
     
     //2
     [CFProgressHUD _showWithTittle:@"请稍等~"];
+//    [UIImage imageNamed:@"load_bg"]];
+//    [CFProgressHUD _showWithImage:[UIImage imageNamed:@"load_bg"]];
+
 }
 
 
